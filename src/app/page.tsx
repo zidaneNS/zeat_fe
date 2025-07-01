@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Page() {
   return (
     <main className="h-full">
@@ -7,9 +9,9 @@ export default function Page() {
         <div className="flex flex-col items-center justify-center gap-y-8 bg-indigo-700 h-full text-white">
           <h1 className="text-4xl font-bold">Welcome to <span className="text-orange-400">Zeat</span></h1>
           <p>Comfy your stomach comfy your day</p>
-          <button className="px-6 py-4 rounded-md cursor-pointer text-black bg-orange-400 hover:bg-orange-500 duration-300">
+          <Link href="/menu" className="px-6 py-4 rounded-md cursor-pointer text-black bg-orange-400 hover:bg-orange-500 duration-300">
             Start Shopping
-          </button>
+          </Link>
         </div>
       </section>
 
