@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { AuthProvider } from "@/contexts/AuthContext";
+import DAL from "@/components/DAL";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -25,10 +26,12 @@ export default function RootLayout({
         className={`antialiased ${poppins.className}`}
       >
         <AuthProvider>
-          <div className="min-h-screen w-full bg-purple-200 flex flex-col text-black relative">
-            <Navbar />
-            {children}
-          </div>
+          <DAL>
+            <div className="min-h-screen w-full bg-purple-200 flex flex-col text-black relative">
+              <Navbar />
+              {children}
+            </div>
+          </DAL>
         </AuthProvider>
       </body>
     </html>

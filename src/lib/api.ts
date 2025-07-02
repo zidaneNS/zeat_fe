@@ -1,1 +1,3 @@
-export const baseUrl = process.env.BASE_URL || "https://8000-firebase-zeat-1750930735910.cluster-sumfw3zmzzhzkx4mpvz3ogth4y.cloudworkstations.dev/api";
+'use client';
+
+export const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;

@@ -1,8 +1,7 @@
+import { baseUrl } from "./api";
 import { LoginDto } from "./dto";
 import { LoginFormSchema } from "./formSchema";
 import { LoginFormState } from "./type";
-
-const baseUrl = "https://8000-firebase-zeat-1750930735910.cluster-sumfw3zmzzhzkx4mpvz3ogth4y.cloudworkstations.dev/api";
 
 export const login = async (state: LoginFormState, formData: FormData) => {
     const validatedFields = LoginFormSchema.safeParse({
@@ -15,8 +14,6 @@ export const login = async (state: LoginFormState, formData: FormData) => {
     }
 
     const { email, password } = validatedFields.data;
-    console.log(baseUrl);
-    console.log(email, password);
 
     const loginDto: LoginDto = { email, password };
 
@@ -33,8 +30,8 @@ export const login = async (state: LoginFormState, formData: FormData) => {
         const result = await response.json();
         if (response.status === 200) {
             const token = result.data;
-            console.log(token);
             localStorage.setItem('token', token);
+            return { success: true }
         } else if (response.status === 400) {
             const message = result.message;
             return { message }

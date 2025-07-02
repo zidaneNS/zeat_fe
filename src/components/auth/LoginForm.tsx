@@ -1,17 +1,27 @@
 'use client';
 
-import { Dispatch, SetStateAction, useActionState } from "react";
+import { Dispatch, SetStateAction, useActionState, useEffect } from "react";
 import FormInputField from "../FormInputField";
 import { login } from "@/lib/action";
 import ErrorMsg from "../ErrorMsg";
+import useAuth from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm({
     setIsLogin
 }: {
     setIsLogin: Dispatch<SetStateAction<boolean>>
 }) {
-
     const [state, action, pending] = useActionState(login, undefined);
+    const { getUser, user } = useAuth();
+    const router = useRouter();
+    
+    useEffect(() => {
+        if (state?.success) {
+            getUser();
+            router.push('/menu');
+        }
+    }, [state, user]);
 
     return (
         <form action={action} className="flex flex-col gap-y-4 bg-orange-300 rounded-md shadow-xl py-4 px-6 w-1/2 text-orange-800">
@@ -36,6 +46,7 @@ export default function LoginForm({
                 title="Password"
             />
             {state?.errors?.password && <ErrorMsg errMsg={state.errors?.password} />}
+            {state?.message && <ErrorMsg errMsg={state.message} />}
             {pending ? (
                 <p className="w-full text-center">Loading...</p>
             ) : (
